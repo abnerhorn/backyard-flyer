@@ -57,12 +57,8 @@ class BackyardFlyer(Drone):
             for waypoint in self.all_waypoints:
             
                 if not waypoint[1]: 
-                    north = self.local_position[0] 
-                    east = self.local_position[1]
-                    target_north = self.target_position[0] 
-                    target_east = self.target_position[1]
-
-                    if abs(target_north - north) < 0.3 and abs(target_east - east) < 0.3:
+                    
+                    if np.linalg.norm(self.target_position[0:2] - self.local_position[0:2]) < 1.0:
                         print("Waypoint ", waypoint[0], "reached")
                         waypoint[1] = True
                         self.waypoint_transition()
